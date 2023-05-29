@@ -18,7 +18,7 @@ namespace Mediator.Handlers.PersonHandlers
         }
         public async Task<PersonModel> Handle(GetPersonByIdQuery request, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(_mapper.Map<PersonModel>(_personService.GetById(request.id)));
+            return await Task.FromResult(_mapper.Map<PersonModel>(_personService.GetById(request.Id)));
         }
     }
 }

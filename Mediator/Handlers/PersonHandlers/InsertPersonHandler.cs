@@ -19,6 +19,6 @@ namespace Mediator.Handlers.PersonHandlers
         }
 
         public Task<PersonModel> Handle(InsertPersonCommand request, CancellationToken cancellationToken) =>
-            Task.FromResult(_mapper.Map<PersonModel>(_personService.Insert(_mapper.Map<PersonDTO>(request.person))));
+            Task.FromResult(_mapper.Map<PersonModel>(_personService.Insert(_mapper.Map<PersonDTO>(request.Person))));
     }
 }
