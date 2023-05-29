@@ -51,6 +51,6 @@ namespace TBC_API.Controllers
         [HttpPost("Login")]
         [AllowAnonymous]
         public IActionResult Login([FromBody] LoginParameters parameters) =>
-            Ok(_mediator.Send(new LoginUserCommand(parameters.username, parameters.password)));
+            Ok(_mediator.Send(new LoginUserCommand(parameters.Username, parameters.Password)));
     }
 }
