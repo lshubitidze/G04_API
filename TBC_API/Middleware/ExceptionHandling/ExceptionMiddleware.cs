@@ -23,18 +23,12 @@ namespace TBC_API.Middleware.ExeptionHandling
                 var response = context.Response;
                 response.ContentType = "application/json";
 
-                switch (error.InnerException)
+                response.StatusCode = error.InnerException switch
                 {
-                    case DuplicateWaitObjectException:
-                        response.StatusCode = (int)HttpStatusCode.Conflict;
-                        break;
-                    case ArgumentException:
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
-                        break;
-                    default:
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        break;
-                }
+                    DuplicateWaitObjectException => (int)HttpStatusCode.Conflict,
+                    ArgumentException => (int)HttpStatusCode.NotFound,
+                    _ => (int)HttpStatusCode.InternalServerError,
+                };
                 await response.WriteAsync(JsonSerializer.Serialize(new { code = response.StatusCode, message = error.InnerException?.Message }));
             }
         }
