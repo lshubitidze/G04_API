@@ -18,8 +18,8 @@ namespace Mediator.Handlers.UserHandlers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<UserModel> Handle(InsertUserCommand request, CancellationToken cancellationToken) => 
-            Task.FromResult(_mapper.Map<UserModel>(_userService.Insert(_mapper.Map<UserDTO>(request.User))));
+        public async Task<UserModel> Handle(InsertUserCommand request, CancellationToken cancellationToken) => 
+            _mapper.Map<UserModel>(_userService.Insert(_mapper.Map<UserDTO>(request.User)));
     }
 }
 

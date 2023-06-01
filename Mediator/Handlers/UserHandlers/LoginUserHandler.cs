@@ -18,7 +18,7 @@ namespace Mediator.Handlers.UserHandlers
             _authorizationService = authorizationService ?? throw new ArgumentNullException(nameof(authorizationService));
         }
 
-        public Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
             var user = _userService.Login(request.username, request.password);
             if (user == null)
@@ -34,7 +34,7 @@ namespace Mediator.Handlers.UserHandlers
             };
 
             string token = new JwtSecurityTokenHandler().WriteToken(_authorizationService.CreateJwtToken(identityUser));
-            return Task.FromResult(token);
+            return (token);
         }
     }
 }

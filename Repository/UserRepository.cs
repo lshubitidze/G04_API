@@ -28,7 +28,7 @@ namespace Repository
             var user = _dbContext.Users.FirstOrDefault(x => x.UserName.Equals(model.UserName));
 
             if (user != default)
-                throw new Exception("User already exists");
+                throw new DuplicateWaitObjectException("User already exists");
 
             model.Password = HashPassword(model.Password);
 
