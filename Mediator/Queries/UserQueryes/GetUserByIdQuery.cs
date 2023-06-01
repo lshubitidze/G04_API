@@ -1,7 +1,7 @@
-﻿using Fasade.DTO;
+﻿using Fasade.Models;
 using MediatR;
 
 namespace Mediator.Queries.UserQueryes
 {
-    public record GetUserByIdQuery(int ID) : IRequest<UserDTO>;
+    public record GetUserByIdQuery(int ID) : IRequest<UserModel>;
 }

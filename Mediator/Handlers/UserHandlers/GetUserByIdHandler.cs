@@ -1,22 +1,26 @@
-﻿using Fasade.DTO;
+﻿using AutoMapper;
+using Fasade.DTO;
 using Fasade.Interfaces.Service;
+using Fasade.Models;
 using Mediator.Queries.UserQueryes;
 using MediatR;
 
 namespace Mediator.Handlers.UserHandlers
 {
-    public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, UserDTO>
+    public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, UserModel>
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public GetUserByIdHandler(IUserService userService)
+        public GetUserByIdHandler(IUserService userService, IMapper mapper)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<UserDTO> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+        public Task<UserModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_userService.GetById(request.ID));
+            return Task.FromResult(_mapper.Map<UserModel>(_userService.GetById(request.ID)));
         }
     }
 }

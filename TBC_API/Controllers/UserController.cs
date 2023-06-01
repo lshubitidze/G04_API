@@ -23,6 +23,7 @@ namespace TBC_API.Controllers
 
         [HttpPost("Create")]
         [CreateUserFilter]
+        [AllowAnonymous]
         public IActionResult Create([FromBody] UserModel user) =>
             Ok(_mediator.Send(new InsertUserCommand(user)));
 
